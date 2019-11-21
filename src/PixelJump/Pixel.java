@@ -54,6 +54,7 @@ public class Pixel {
         mouth.setStroked(true);
         pixel.add(mouth);
 
+        pixel.setCenter(PixelJump.CANVAS_WIDTH/2, PixelJump.CANVAS_HEIGHT-100);
         currentCenterX = pixel.getX()+25;
         currentCenterY = pixel.getY()+25;
         maxY = pixel.getY()-100;
