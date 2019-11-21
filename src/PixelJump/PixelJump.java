@@ -16,7 +16,7 @@ public class PixelJump {
    }
    public void pixelJumpRun(){
         canvas.animate(()-> {
-            pixel.pixelContinuousJump();
+            pixel.pixelContinuousJump(.5);
             canvas.pause(20);
         });
    }

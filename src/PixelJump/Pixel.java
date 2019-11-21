@@ -6,13 +6,13 @@ import comp127graphics.Rectangle;
 import java.awt.*;
 
 public class Pixel {
-//    public static final double GRAVITY = -9.8;
+    public static final double GRAVITY = -9.8;
     public GraphicsGroup pixel = new GraphicsGroup();
     private Rectangle pixelBody;
     private Ellipse eye1, eye2, eyeBall1, eyeBall2;
     private Arc mouth;
     private Color bodyColor = new Color(100, 150, 200);
-    private double currentCenterX, currentCenterY, yVelocity, maxY;
+    private double currentCenterX, currentCenterY, yVelocity, maxY, xVelocity, velocity;
 /* sets up body parts of pixel*/
     public Pixel() {
         pixelBody = new Rectangle(PixelJump.CANVAS_WIDTH / 2, PixelJump.CANVAS_HEIGHT - 60, 50, 50);
@@ -21,8 +21,7 @@ public class Pixel {
         eyeBall1 = new Ellipse(PixelJump.CANVAS_WIDTH / 2 + 2, PixelJump.CANVAS_HEIGHT - 55, 11, 15);
         eyeBall2 = new Ellipse(PixelJump.CANVAS_WIDTH / 2 + 26, PixelJump.CANVAS_HEIGHT - 55, 11, 15);
         mouth = new Arc(PixelJump.CANVAS_WIDTH / 2+20, PixelJump.CANVAS_HEIGHT - 28, 10, 10,180,180);
-
-       yVelocity = 10;
+        velocity = 10;
         drawPixel();
     }
 /* adds pixel to canvas */
@@ -57,19 +56,20 @@ public class Pixel {
         currentCenterX = pixel.getX();
         currentCenterY = pixel.getY();
         maxY = pixel.getY() - 100;
-       System.out.println(pixel.getY());
+        yVelocity = velocity * Math.sin(90);
 
     }
 
-    public void pixelContinuousJump() {
-        if(currentCenterY>maxY) {
-            yVelocity += 10*.1;
-        }
-        if(currentCenterY < 0){
-              yVelocity -= 10*.1;
-        }
+    public void pixelContinuousJump(double dt) {
         pixel.setPosition(currentCenterX, currentCenterY);
-        currentCenterY -= yVelocity;
+        currentCenterY -= yVelocity*dt;
+        if(currentCenterY>maxY) {
+           yVelocity -= GRAVITY*dt;
+           System.out.println(yVelocity);
+        }
+        if(currentCenterY < -75){
+              yVelocity += GRAVITY*dt;
+        }
 
 
     }
