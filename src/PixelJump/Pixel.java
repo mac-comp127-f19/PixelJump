@@ -60,7 +60,7 @@ public class Pixel {
     }
 
     public void pixelContinuousJump(){
-        currentCenterY += yVelocity + currentCenterY;
+        currentCenterY += yVelocity;
         pixel.setCenter(50, currentCenterY);
         if(currentCenterY>=maxY) {
             yVelocity *= -1;
