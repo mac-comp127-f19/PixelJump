@@ -11,7 +11,11 @@ private GraphicsGroup platformCollection;
 private double platformWidth;
 private double platformHeight;
 private static final int Jumprange=100;
+private double canvasWidth;
+
 private Random rand;
+
+
  public PlatformManager(CanvasWindow canvas){
      this.canvas=canvas;
      this.platformWidth=(canvas.getWidth()*0.1);
@@ -29,6 +33,10 @@ private Random rand;
  public void removeSinglePlatform(){
 
  }
+
+    /**
+     * Remove all platforms when the pixel is off the lower b
+     */
  public void removeAllPlatform(){
      platformCollection.removeAll();
  }
