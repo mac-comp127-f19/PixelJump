@@ -1,7 +1,6 @@
 package PixelJump;
 import comp127graphics.CanvasWindow;
 import comp127graphics.GraphicsGroup;
-import comp127graphics.GraphicsObject;
 
 import java.util.Random;
 
@@ -10,22 +9,34 @@ private CanvasWindow canvas;
 private GraphicsGroup platformCollection;
 private double platformWidth;
 private double platformHeight;
-private static final int Jumprange=100;
-private double canvasWidth;
+private static final double jumpRange =100;
+private double maxX;
+private double maxY;
 
+private double currentY; // the position of the current platform
+private double currentX;
 private Random rand;
 
 
  public PlatformManager(CanvasWindow canvas){
+
      this.canvas=canvas;
      this.platformWidth=(canvas.getWidth()*0.1);
      this.platformHeight=(canvas.getHeight()*0.1);
+     this.maxX=canvas.getWidth();
+     this.maxY=canvas.getHeight()-60;
+     this.currentY=10;
      rand=new Random();
+
  }
 
  public void generatePlatforms(){
      platformCollection=new GraphicsGroup();
-
+     while(currentY<maxY){
+         currentX = rand.nextDouble()*maxX;
+         Platform platform=new Platform(currentX,currentY,platformWidth,platformHeight);
+         currentY+=(rand.nextDouble()* jumpRange);
+     }
  }
 
 
