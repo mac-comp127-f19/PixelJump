@@ -2,6 +2,7 @@ package PixelJump;
 import comp127graphics.CanvasWindow;
 import comp127graphics.GraphicsGroup;
 
+import java.awt.*;
 import java.util.Random;
 
 public class PlatformManager {
@@ -22,7 +23,7 @@ private Random rand;
 
      this.canvas=canvas;
      this.platformWidth=(canvas.getWidth()*0.1);
-     this.platformHeight=(canvas.getHeight()*0.1);
+     this.platformHeight=(canvas.getHeight()*0.01);
      this.maxX=canvas.getWidth();
      this.maxY=canvas.getHeight()-60;
      this.currentY=10;
@@ -35,8 +36,14 @@ private Random rand;
      while(currentY<maxY){
          currentX = rand.nextDouble()*maxX;
          Platform platform=new Platform(currentX,currentY,platformWidth,platformHeight);
+         platform.setStroked(true);
+         platform.setStrokeColor(Color.ORANGE);
+         platform.setFilled(true);
+         platform.setFillColor(Color.ORANGE);
+         platformCollection.add(platform);
          currentY+=(rand.nextDouble()* jumpRange);
      }
+     canvas.add(platformCollection);
  }
 
 
@@ -46,7 +53,7 @@ private Random rand;
  }
 
     /**
-     * Remove all platforms when the pixel is off the lower b
+     * Remove all platforms when the pixel is lower than the lower boundary
      */
  public void removeAllPlatform(){
      platformCollection.removeAll();

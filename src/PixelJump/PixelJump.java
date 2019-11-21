@@ -8,11 +8,13 @@ public class PixelJump {
     CanvasWindow canvas = new CanvasWindow("",800,800);
     Pixel pixel;
 
+    PlatformManager platformManager;
     public PixelJump(){
         pixel = new Pixel();
+        platformManager=new PlatformManager(canvas);
         pixel.addToCanvas(canvas);
         pixelJumpRun();
-
+        platformManager.generatePlatforms();
    }
    public void pixelJumpRun(){
         canvas.animate(()-> {
