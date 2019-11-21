@@ -6,11 +6,13 @@ import comp127graphics.Rectangle;
 import java.awt.*;
 
 public class Pixel {
+//    public static final double GRAVITY = -9.8;
     public GraphicsGroup pixel = new GraphicsGroup();
     private Rectangle pixelBody;
     private Ellipse eye1, eye2, eyeBall1, eyeBall2;
     private Arc mouth;
     private Color bodyColor = new Color(100, 150, 200);
+    private double currentCenterX, currentCenterY, yVelocity, maxY;
 /* sets up body parts of pixel*/
     public Pixel() {
         pixelBody = new Rectangle(PixelJump.CANVAS_WIDTH / 2, PixelJump.CANVAS_HEIGHT - 60, 50, 50);
@@ -19,6 +21,8 @@ public class Pixel {
         eyeBall1 = new Ellipse(PixelJump.CANVAS_WIDTH / 2 + 2, PixelJump.CANVAS_HEIGHT - 55, 11, 15);
         eyeBall2 = new Ellipse(PixelJump.CANVAS_WIDTH / 2 + 26, PixelJump.CANVAS_HEIGHT - 55, 11, 15);
         mouth = new Arc(PixelJump.CANVAS_WIDTH / 2+20, PixelJump.CANVAS_HEIGHT - 28, 10, 10,180,180);
+
+       yVelocity = 10;
         drawPixel();
     }
 /* adds pixel to canvas */
@@ -49,5 +53,17 @@ public class Pixel {
         mouth.setStrokeColor(Color.lightGray);
         mouth.setStroked(true);
         pixel.add(mouth);
+
+        currentCenterX = pixel.getX()+25;
+        currentCenterY = pixel.getY()+25;
+        maxY = pixel.getY()-100;
+    }
+
+    public void pixelContinuousJump(){
+        currentCenterY += yVelocity + currentCenterY;
+        pixel.setCenter(50, currentCenterY);
+        if(currentCenterY>=maxY) {
+            yVelocity *= -1;
+        }
     }
 }
