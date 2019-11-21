@@ -19,7 +19,8 @@ private Random rand;
      rand=new Random();
  }
 
- public void generateBricks(){
+ public void generatePlatforms(){
+     platformCollection=new GraphicsGroup();
 
  }
 
@@ -29,7 +30,7 @@ private Random rand;
 
  }
  public void removeAllPlatform(){
-
+     platformCollection.removeAll();
  }
 
 
