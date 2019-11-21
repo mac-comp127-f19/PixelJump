@@ -56,13 +56,14 @@ public class Pixel {
 
         currentCenterX = pixel.getX();
         currentCenterY = pixel.getY();
-        maxY = pixel.getY() + 100;
+        maxY = pixel.getY() - 100;
 
     }
 
     public void pixelContinuousJump() {
         pixel.setPosition(currentCenterX, currentCenterY);
         currentCenterY -= yVelocity;
+        System.out.println(currentCenterY);
         if(currentCenterY<maxY){
             yVelocity*= -1;
         }
