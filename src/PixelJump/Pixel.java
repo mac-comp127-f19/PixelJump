@@ -1,12 +1,12 @@
 package PixelJump;
 
+
 import comp127graphics.*;
 import comp127graphics.Rectangle;
 
 import java.awt.*;
 
 public class Pixel {
-    public static final double GRAVITY = -9.8;
     public GraphicsGroup pixel = new GraphicsGroup();
     private Rectangle pixelBody;
     private Ellipse eye1, eye2, eyeBall1, eyeBall2;
@@ -21,7 +21,7 @@ public class Pixel {
         eyeBall1 = new Ellipse(PixelJump.CANVAS_WIDTH / 2 + 2, PixelJump.CANVAS_HEIGHT - 55, 11, 15);
         eyeBall2 = new Ellipse(PixelJump.CANVAS_WIDTH / 2 + 26, PixelJump.CANVAS_HEIGHT - 55, 11, 15);
         mouth = new Arc(PixelJump.CANVAS_WIDTH / 2+20, PixelJump.CANVAS_HEIGHT - 28, 10, 10,180,180);
-        velocity = 10;
+        velocity = -10;
         drawPixel();
     }
 /* adds pixel to canvas */
@@ -59,16 +59,21 @@ public class Pixel {
         yVelocity = velocity * Math.sin(90);
 
     }
-
+/* moves pixel up and down, currently does not take in when the user drags the pixel to left or right or when it hits a platform*/
+    /* graphics group initial position is 0,0, so to move up velocity must be negative. It moves up to a max height of 100, which means that the pixel each jump can only go up 100. right now it is set up so when the graphics group goes back to its initial position it bounces back up*/
     public void pixelContinuousJump(double dt) {
         pixel.setPosition(currentCenterX, currentCenterY);
         currentCenterY -= yVelocity*dt;
-        if(currentCenterY>maxY) {
-           yVelocity -= GRAVITY*dt;
-           System.out.println(yVelocity);
+        // moves pixel up because the graphics group initial position is (0,0) and to move upwards needs an negative velocity, -3 gives the gravity effect.
+        System.out.println(yVelocity);
+        if(currentCenterY<maxY) {
+           yVelocity += -3*dt;
+
         }
-        if(currentCenterY < -75){
-              yVelocity += GRAVITY*dt;
+        // moves pixel down because the graphics group initial position is (0,0) and to move upwards needs an negative velocity. moves down once pixel has gone over MaxY
+        if(currentCenterY > 0){
+              yVelocity -= -3*dt;
+
         }
 
 
