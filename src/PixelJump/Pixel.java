@@ -57,7 +57,7 @@ public class Pixel {
         mouth.setStroked(true);
         pixel.add(mouth);
 
-        currentCenterX = pixel.getX();
+        currentCenterX = pixelBody.getX();
         currentCenterY = pixel.getY();
         maxY = pixel.getY() - 100;
         yVelocity = velocity * Math.sin(90);
@@ -82,7 +82,7 @@ public class Pixel {
 
     public void pixelMove() {
         Point p = MouseInfo.getPointerInfo().getLocation();
-        currentCenterX = p.x;
+        currentCenterX = p.x-400;
         pixel.setPosition(currentCenterX, currentCenterY);
     }
 }
