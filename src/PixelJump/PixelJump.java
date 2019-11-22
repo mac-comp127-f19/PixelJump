@@ -3,9 +3,9 @@ package PixelJump;
 import comp127graphics.CanvasWindow;
 
 public class PixelJump {
-    public static final int CANVAS_WIDTH = 800;
-    public static final int CANVAS_HEIGHT = 800;
-    CanvasWindow canvas = new CanvasWindow("",800,800);
+    public static final int CANVAS_WIDTH = 600;
+    public static final int CANVAS_HEIGHT = 600;
+    CanvasWindow canvas = new CanvasWindow("",CANVAS_WIDTH,CANVAS_HEIGHT);
     Pixel pixel;
 
     PlatformManager platformManager;
@@ -18,9 +18,11 @@ public class PixelJump {
    }
    public void pixelJumpRun(){
         canvas.animate(()-> {
-            pixel.pixelContinuousJump();
-            canvas.pause(2000);
-        });
+            pixel.pixelContinuousJump(.5);
+            canvas.pause(20);
+        }
+        );
+        canvas.onMouseMove(event -> pixel.pixelMove());
    }
     public static void main(String args[]){
        new PixelJump();
