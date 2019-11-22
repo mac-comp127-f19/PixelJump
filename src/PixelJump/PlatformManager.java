@@ -13,7 +13,7 @@ private double platformHeight;
 private static final double jumpRange =100;
 private double maxX;
 private double maxY;
-//private double pixelY;
+private double pixelY;
 private double currentY; // the position of the current platform
 private double currentX;
 private Random rand;
