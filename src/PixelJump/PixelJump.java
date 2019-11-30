@@ -11,7 +11,7 @@ public class PixelJump {
     PlatformManager platformManager;
     public PixelJump(){
         pixel = new Pixel();
-        platformManager=new PlatformManager(canvas);
+        platformManager=new PlatformManager(canvas,pixel);
         pixel.addToCanvas(canvas);
         pixelJumpRun();
         platformManager.generatePlatforms();

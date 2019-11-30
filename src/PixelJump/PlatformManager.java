@@ -13,27 +13,35 @@ private double platformHeight;
 private static final double jumpRange =100;
 private double maxX;
 private double maxY;
-
+//private double pixelY;
 private double currentY; // the position of the current platform
 private double currentX;
 private Random rand;
+Pixel pixel;
 
-
- public PlatformManager(CanvasWindow canvas){
+ public PlatformManager(CanvasWindow canvas,Pixel pixel){
 
      this.canvas=canvas;
      this.platformWidth=(canvas.getWidth()*0.1);
      this.platformHeight=(canvas.getHeight()*0.01);
      this.maxX=canvas.getWidth();
-     this.maxY=canvas.getHeight()-60;
-     this.currentY=10;
+     this.maxY=60;
+     this.currentY=canvas.getHeight()-20;
      rand=new Random();
+     this.pixel=pixel;
+//     pixelY=pixel.getY();//assume we have the method to get y for now
 
  }
 
  public void generatePlatforms(){
      platformCollection=new GraphicsGroup();
-     while(currentY<maxY){
+//     if(pixelY>){
+//
+//     }
+//     else(){
+//
+//     }
+     while(currentY>maxY){
          currentX = rand.nextDouble()*maxX;
          Platform platform=new Platform(currentX,currentY,platformWidth,platformHeight);
          platform.setStroked(true);
@@ -41,7 +49,7 @@ private Random rand;
          platform.setFilled(true);
          platform.setFillColor(Color.ORANGE);
          platformCollection.add(platform);
-         currentY+=(rand.nextDouble()* jumpRange);
+         currentY-=(rand.nextDouble()* jumpRange);
      }
      canvas.add(platformCollection);
  }
