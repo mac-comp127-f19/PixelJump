@@ -59,12 +59,14 @@ Pixel pixel;
      canvas.add(platformCollection);
  }
 
- public void pixelLands(){
+ public boolean pixelLands(){
     for(Platform platform: platforms){
         if(pixel.getCurrentBottomY() == platform.getTopYPosition()){
             pixel.setMaxYAndBaseY(platform.getTopYPosition() - 100, platform.getTopYPosition());
+            return true;
         }
     }
+    return false;
  }
  public void removeSinglePlatform(){
 
