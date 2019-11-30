@@ -18,11 +18,11 @@ public class PixelJump {
    }
    public void pixelJumpRun(){
         canvas.animate(()-> {
-            pixel.pixelContinuousJump(.5);
+            pixel.pixelContinuousJump();
             canvas.pause(20);
         }
         );
-        canvas.onMouseMove(event -> pixel.pixelMove());
+       canvas.onMouseMove(event -> pixel.pixelMove());
    }
     public static void main(String args[]){
        new PixelJump();

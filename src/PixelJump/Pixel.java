@@ -1,6 +1,7 @@
 package PixelJump;
 
 
+import cantrell.animations.completed.GravityAnimation;
 import comp127graphics.*;
 import comp127graphics.Rectangle;
 
@@ -8,12 +9,13 @@ import java.awt.*;
 import java.awt.Point;
 
 public class Pixel {
+    public static final double GRAVITY = -100;
     public GraphicsGroup pixel = new GraphicsGroup();
     private Rectangle pixelBody;
     private Ellipse eye1, eye2, eyeBall1, eyeBall2;
     private Arc mouth;
     private Color bodyColor = new Color(100, 150, 200);
-    private double currentCenterX, currentCenterY, yVelocity, maxY, xVelocity, velocity;
+    private double currentCenterX, currentCenterY, yVelocity, maxY, xVelocity, velocity, currentYVelocity, baseY;
 
     /* sets up body parts of pixel*/
     public Pixel() {
@@ -57,34 +59,57 @@ public class Pixel {
         mouth.setStroked(true);
         pixel.add(mouth);
 
-        currentCenterX = pixelBody.getX();
+        currentCenterX = pixel.getX();
         currentCenterY = pixel.getY();
         maxY = pixel.getY() - 100;
-        yVelocity = velocity * Math.sin(90);
+        yVelocity = velocity;
+        baseY = 0;
+
 
     }
 
     /* moves pixel up and down, currently does not take in when the user drags the pixel to left or right or when it hits a platform*/
     /* graphics group initial position is 0,0, so to move up velocity must be negative. It moves up to a max height of 100, which means that the pixel each jump can only go up 100. right now it is set up so when the graphics group goes back to its initial position it bounces back up*/
-    public void pixelContinuousJump(double dt) {
+    public void pixelContinuousJump() {
         pixel.setPosition(currentCenterX, currentCenterY);
-        currentCenterY -= yVelocity * dt;
-        // moves pixel up because the graphics group initial position is (0,0) and to move upwards needs an negative velocity, -3 gives the gravity effect.
+        currentCenterY += yVelocity;
+//        yVelocity += GRAVITY*.5;
         if (currentCenterY < maxY) {
-            yVelocity += -3 * dt;
+            yVelocity *= -1;
         }
-        // moves pixel down because the graphics group initial position is (0,0) and to move upwards needs an negative velocity. moves down once pixel has gone over MaxY
-        if (currentCenterY > 0) {
-            yVelocity -= -3 * dt;
-
+        if (currentCenterY > baseY) {
+            yVelocity *= -1;
         }
+        getCurrentBottomY();
     }
+
 
     public void pixelMove() {
         Point p = MouseInfo.getPointerInfo().getLocation();
-        currentCenterX = p.x-400;
+       if(p.x <  50){
+           currentCenterX = -1*PixelJump.CANVAS_WIDTH / 2;
+       }
+       else{
+           if(p.x > PixelJump.CANVAS_WIDTH-50){
+               currentCenterX = PixelJump.CANVAS_WIDTH/2 -50;
+           }
+           else {
+               currentCenterX = p.x - PixelJump.CANVAS_WIDTH / 2 - 50;
+           }
+    }
         pixel.setPosition(currentCenterX, currentCenterY);
     }
+
+    public void setMaxYAndBaseY(double newMaxY, double newBaseY){
+        maxY = newMaxY;
+        baseY = newBaseY;
+    }
+
+    public double getCurrentBottomY(){
+        return currentCenterY-50;
+    }
 }
+
+
 
 
