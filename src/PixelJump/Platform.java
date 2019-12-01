@@ -5,4 +5,7 @@ public class Platform extends Rectangle {
         super(positionX,positionY,platformWidth,platformHeight);
 
     }
+    public double getTopYPosition(){
+        return getY();
+    }
 }

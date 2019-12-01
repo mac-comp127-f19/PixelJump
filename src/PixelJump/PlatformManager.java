@@ -3,11 +3,14 @@ import comp127graphics.CanvasWindow;
 import comp127graphics.GraphicsGroup;
 
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class PlatformManager {
 private CanvasWindow canvas;
 private GraphicsGroup platformCollection;
+private List<Platform> platforms;
 private double platformWidth;
 private double platformHeight;
 private static final double jumpRange =100;
@@ -29,6 +32,7 @@ Pixel pixel;
      this.currentY=canvas.getHeight()-20;
      rand=new Random();
      this.pixel=pixel;
+     platforms = new ArrayList<>();
 //     pixelY=pixel.getY();//assume we have the method to get y for now
 
  }
@@ -49,13 +53,21 @@ Pixel pixel;
          platform.setFilled(true);
          platform.setFillColor(Color.ORANGE);
          platformCollection.add(platform);
+         platforms.add(platform);
          currentY-=(rand.nextDouble()* jumpRange);
      }
      canvas.add(platformCollection);
  }
 
-
-
+ public boolean pixelLands(){
+    for(Platform platform: platforms){
+        if(pixel.getCurrentBottomY() == platform.getTopYPosition()){
+            pixel.setMaxYAndBaseY(platform.getTopYPosition() - 100, platform.getTopYPosition());
+            return true;
+        }
+    }
+    return false;
+ }
  public void removeSinglePlatform(){
 
  }
