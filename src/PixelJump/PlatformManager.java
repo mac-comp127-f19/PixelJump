@@ -21,7 +21,7 @@ private double currentY; // the position of the current platform
 private double currentX;
 private Random rand;
 Pixel pixel;
-
+private List<Double> platformHeightCollection;
  public PlatformManager(CanvasWindow canvas,Pixel pixel){
 
      this.canvas=canvas;
@@ -33,18 +33,15 @@ Pixel pixel;
      rand=new Random();
      this.pixel=pixel;
      platforms = new ArrayList<>();
-//     pixelY=pixel.getY();//assume we have the method to get y for now
+//     platformCollection = new ArrayList<>();
 
  }
 
+    /**
+     * a method that generate platforms in random order and added on screen via a graphics group
+     */
  public void generatePlatforms(){
      platformCollection=new GraphicsGroup();
-//     if(pixelY>){
-//
-//     }
-//     else(){
-//
-//     }
      while(currentY>maxY){
          currentX = rand.nextDouble()*maxX;
          Platform platform=new Platform(currentX,currentY,platformWidth,platformHeight);
@@ -57,17 +54,35 @@ Pixel pixel;
          currentY-=(rand.nextDouble()* jumpRange);
      }
      canvas.add(platformCollection);
+
  }
 
+ public void getPlatformHeight(){
+
+ }
+
+
+    /**
+     * a method that detects whether the pixel had land on it
+     * this method then sets the Y position of the pixel
+     *
+     */
  public boolean pixelLands(){
     for(Platform platform: platforms){
+        System.out.println(platform.getTopYPosition());
         if(pixel.getCurrentBottomY() == platform.getTopYPosition()){
+
             pixel.setMaxYAndBaseY(platform.getTopYPosition() - 100, platform.getTopYPosition());
             return true;
         }
     }
     return false;
  }
+
+//    public void pixelLands(){
+//
+//
+//    }
  public void removeSinglePlatform(){
 
  }

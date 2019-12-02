@@ -15,6 +15,7 @@ public class PixelJump {
         pixel.addToCanvas(canvas);
         pixelJumpRun();
         platformManager.generatePlatforms();
+
    }
    public void pixelJumpRun(){
         canvas.animate(()-> {
@@ -22,7 +23,7 @@ public class PixelJump {
             canvas.pause(20);
         }
         );
-       canvas.onMouseMove(event -> pixel.pixelMove());
+       canvas.onMouseMove(event -> { platformManager.pixelLands();pixel.pixelMove();});
    }
     public static void main(String args[]){
        new PixelJump();

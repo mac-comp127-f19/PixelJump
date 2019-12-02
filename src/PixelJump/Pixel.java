@@ -68,8 +68,9 @@ public class Pixel {
 
     }
 
-    /* moves pixel up and down, currently does not take in when the user drags the pixel to left or right or when it hits a platform*/
-    /* graphics group initial position is 0,0, so to move up velocity must be negative. It moves up to a max height of 100, which means that the pixel each jump can only go up 100. right now it is set up so when the graphics group goes back to its initial position it bounces back up*/
+    /** moves pixel up and down, currently does not take in when the user drags the pixel to left or right or when it hits a platform
+     * graphics group initial position is 0,0, so to move up velocity must be negative. It moves up to a max height of 100,which means that the pixel each jump can only go up 100.
+     * right now it is set up so when the graphics group goes back to its initial position it bounces back up*/
     public void pixelContinuousJump() {
         pixel.setPosition(currentCenterX, currentCenterY);
         currentCenterY += yVelocity;
@@ -103,6 +104,7 @@ public class Pixel {
     public void setMaxYAndBaseY(double newMaxY, double newBaseY){
         maxY = newMaxY;
         baseY = newBaseY;
+        pixel.setPosition(currentCenterX,newBaseY);
     }
 
     public double getCurrentBottomY(){
