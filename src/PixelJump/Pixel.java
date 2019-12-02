@@ -103,6 +103,7 @@ public class Pixel {
     public void setMaxYAndBaseY(double newMaxY, double newBaseY){
         maxY = newMaxY;
         baseY = newBaseY;
+        currentCenterY = baseY;
     }
 
     public double getCurrentBottomY(){

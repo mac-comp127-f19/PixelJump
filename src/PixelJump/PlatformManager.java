@@ -61,7 +61,7 @@ Pixel pixel;
 
  public boolean pixelLands(){
     for(Platform platform: platforms){
-        if(pixel.getCurrentBottomY() == platform.getTopYPosition()){
+        if(pixel.getCurrentBottomY() > platform.getTopYPosition()+ .1 && pixel.getCurrentBottomY() < platform.getTopYPosition()- .1){
             pixel.setMaxYAndBaseY(platform.getTopYPosition() - 100, platform.getTopYPosition());
             return true;
         }
