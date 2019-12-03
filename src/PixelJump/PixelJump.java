@@ -19,13 +19,12 @@ public class PixelJump {
         Platform startingPlatform = new Platform(CANVAS_WIDTH/2, CANVAS_HEIGHT-10, 100, 30);
         canvas.add(startingPlatform);
 
-
     }
 
     public void pixelJumpRun() {
         canvas.animate(() -> {
-                    pixel.pixelContinuousJump();
-                    platformManager.pixelLands();
+                   pixel.pixelContinuousJump();
+                   platformManager.pixelLands();
                 }
         );
         canvas.onMouseMove(event -> {

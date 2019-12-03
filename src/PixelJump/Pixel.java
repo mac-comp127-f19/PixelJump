@@ -7,10 +7,12 @@ import comp127graphics.Point;
 import comp127graphics.Rectangle;
 
 import java.awt.*;
+import java.sql.SQLOutput;
 
 
 public class Pixel {
-    public static final double GRAVITY = .4;
+    private static final double GRAVITY = .004,
+                                JUMP_VELOCITY = -1;
     public GraphicsGroup pixel = new GraphicsGroup();
     private Rectangle pixelBody;
     private Ellipse eye1, eye2, eyeBall1, eyeBall2;
@@ -26,7 +28,7 @@ public class Pixel {
         eyeBall1 = new Ellipse(PixelJump.CANVAS_WIDTH / 2 + 2, PixelJump.CANVAS_HEIGHT - 55, 11, 15);
         eyeBall2 = new Ellipse(PixelJump.CANVAS_WIDTH / 2 + 26, PixelJump.CANVAS_HEIGHT - 55, 11, 15);
         mouth = new Arc(PixelJump.CANVAS_WIDTH / 2 + 20, PixelJump.CANVAS_HEIGHT - 28, 10, 10, 180, 180);
-        yVelocity = -10;
+        bounce();
         drawPixel();
     }
 
@@ -74,7 +76,7 @@ public class Pixel {
     public void pixelMove(Point mousePosition) {
         pixel.setCenter(mousePosition.getX(), pixel.getCenter().getY());
         System.out.println(pixel.getCenter());
-//        pixel.setCenter(pixel.getCenter());
+     //   pixel.setCenter(pixel.getCenter());
     }
 
 
@@ -84,11 +86,11 @@ public class Pixel {
 
 
     public void bounce() {
-        yVelocity = -10;
+        yVelocity = JUMP_VELOCITY;
     }
 
     public boolean didJustCrossPlatform(Platform platform){
-
+        System.out.println(platform.getRightX() + "   " + pixel.getX());
         return platform.getRightX() > pixel.getX()
                 && platform.getLeftX() < pixel.getWidth()+pixel.getX()
                 && previousBottomPixelY <= platform.getTopYPosition()
