@@ -66,8 +66,8 @@ Pixel pixel;
      for (Platform platform : platforms) {
          if (platform.getRightX() > pixel.getBottomLeftX() && platform.getLeftX() < pixel.getBottomRightX()) {
              if (pixel.getPreviousBottomPixelY() <= platform.getTopYPosition() && pixel.getCurrentBottomPixelY() >= platform.getTopYPosition()) {
-                 System.out.println("Hi");
-                   //pixel.setMaxYAndBaseY(platform.getTopYPosition());
+//                 System.out.println("Hi");
+                 pixel.setMaxYAndBaseY(platform.getTopYPosition());
              }
          }
      }
