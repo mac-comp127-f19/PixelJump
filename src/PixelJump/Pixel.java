@@ -74,9 +74,9 @@ public class Pixel {
     public void pixelContinuousJump() {
       //  System.out.println(baseY);
         previousBottomPixelY = currentBottomPixelY;
-        pixel.setPosition(currentCenterX, currentCenterY);
         currentCenterY += yVelocity;
         currentBottomPixelY+=yVelocity;
+//        System.out.println(maxY +" "+baseY);
         // changes the same amount current Y changes
         if (currentCenterY < maxY) {
             yVelocity *= -1;
@@ -84,6 +84,7 @@ public class Pixel {
         if (currentCenterY > baseY) {
             yVelocity *= -1;
         }
+        pixel.setPosition(currentCenterX, currentCenterY);
 
     }
 
@@ -105,7 +106,7 @@ public class Pixel {
     }
 
     public void setMaxYAndBaseY(double platformHeight){
-        maxY = maxY- platformHeight;
+        maxY = maxY- (PixelJump.CANVAS_HEIGHT - platformHeight);
         baseY -= (PixelJump.CANVAS_HEIGHT-platformHeight);
         currentCenterY = baseY;
         pixel.setPosition(currentCenterX,baseY);
