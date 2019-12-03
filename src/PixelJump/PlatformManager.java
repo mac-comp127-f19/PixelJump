@@ -11,6 +11,7 @@ public class PlatformManager {
 private CanvasWindow canvas;
 private GraphicsGroup platformCollection;
 private List<Platform> platforms;
+private List<Double> platformHeights;
 private double platformWidth;
 private double platformHeight;
 private static final double jumpRange =100;
@@ -32,6 +33,7 @@ Pixel pixel;
      this.currentY=canvas.getHeight()-20;
      rand=new Random();
      this.pixel=pixel;
+     platformHeights = new ArrayList<>();
      platforms = new ArrayList<>();
 //     pixelY=pixel.getY();//assume we have the method to get y for now
 
@@ -54,20 +56,24 @@ Pixel pixel;
          platform.setFillColor(Color.ORANGE);
          platformCollection.add(platform);
          platforms.add(platform);
+         platformHeights.add(currentY);
          currentY-=(rand.nextDouble()* jumpRange);
      }
      canvas.add(platformCollection);
  }
 
- public boolean pixelLands(){
-    for(Platform platform: platforms){
-        if(pixel.getCurrentBottomY() > platform.getTopYPosition()+ .1 && pixel.getCurrentBottomY() < platform.getTopYPosition()- .1){
-            pixel.setMaxYAndBaseY(platform.getTopYPosition() - 100, platform.getTopYPosition());
-            return true;
-        }
-    }
-    return false;
+ public void pixelLands() {
+     for (Platform platform : platforms) {
+         if (platform.getRightX() > pixel.getBottomRightX() && platform.getLeftX() < pixel.getBottomLeftX()) {
+             System.out.println("HI");
+             if (pixel.getPreviousBottomY()< platform.getTopYPosition() && pixel.getCurrentBottomY() > platform.getTopYPosition()) {
+//                 pixel.setMaxYAndBaseY(platform.getTopYPosition(), platform.getTopYPosition());
+                 System.out.println("Hi");
+             }
+         }
+     }
  }
+
  public void removeSinglePlatform(){
 
  }

@@ -15,7 +15,7 @@ public class Pixel {
     private Ellipse eye1, eye2, eyeBall1, eyeBall2;
     private Arc mouth;
     private Color bodyColor = new Color(100, 150, 200);
-    private double currentCenterX, currentCenterY, yVelocity, maxY, xVelocity, velocity, currentYVelocity, baseY;
+    private double currentCenterX, currentCenterY, yVelocity, maxY, xVelocity, velocity, currentYVelocity, baseY, previousBottomY;
 
     /* sets up body parts of pixel*/
     public Pixel() {
@@ -64,6 +64,7 @@ public class Pixel {
         maxY = pixel.getY() - 100;
         yVelocity = velocity;
         baseY = 0;
+        previousBottomY = pixelBody.getY()+50;
 
 
     }
@@ -71,6 +72,7 @@ public class Pixel {
     /* moves pixel up and down, currently does not take in when the user drags the pixel to left or right or when it hits a platform*/
     /* graphics group initial position is 0,0, so to move up velocity must be negative. It moves up to a max height of 100, which means that the pixel each jump can only go up 100. right now it is set up so when the graphics group goes back to its initial position it bounces back up*/
     public void pixelContinuousJump() {
+        previousBottomY = pixelBody.getY()+50;
         pixel.setPosition(currentCenterX, currentCenterY);
         currentCenterY += yVelocity;
 //        yVelocity += GRAVITY*.5;
@@ -107,8 +109,21 @@ public class Pixel {
     }
 
     public double getCurrentBottomY(){
-        return currentCenterY-50;
+        return pixelBody.getY()+50;
     }
+    public double getBottomLeftX(){
+        return pixelBody.getX();
+    }
+    public double getBottomRightX(){
+        return pixelBody.getX()+50;
+    }
+    public double getPreviousBottomY(){
+        return previousBottomY;
+    }
+
+//    public void landOnPlatformCheck(CanvasWindow canvas){
+//        GraphicsObject platform = canvas.
+//    }
 }
 
 
