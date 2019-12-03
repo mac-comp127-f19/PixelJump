@@ -15,7 +15,7 @@ public class Pixel {
     private Ellipse eye1, eye2, eyeBall1, eyeBall2;
     private Arc mouth;
     private Color bodyColor = new Color(100, 150, 200);
-    private double currentCenterX, currentCenterY, yVelocity, maxY, xVelocity, velocity, currentYVelocity, baseY, previousBottomY;
+    private double currentCenterX, currentCenterY, yVelocity, maxY, xVelocity, velocity, currentYVelocity, baseY, previousBottomY, previousCenterX;
 
     /* sets up body parts of pixel*/
     public Pixel() {
@@ -65,6 +65,7 @@ public class Pixel {
         yVelocity = velocity;
         baseY = 0;
         previousBottomY = pixelBody.getY()+50;
+        previousCenterX = pixelBody.getX();
 
 
     }
@@ -88,6 +89,7 @@ public class Pixel {
 
     public void pixelMove() {
         Point p = MouseInfo.getPointerInfo().getLocation();
+        previousCenterX= pixelBody.getX();
        if(p.x <  50){
            currentCenterX = -1*PixelJump.CANVAS_WIDTH / 2;
        }
@@ -117,13 +119,12 @@ public class Pixel {
     public double getBottomRightX(){
         return pixelBody.getX()+50;
     }
+    public double getPreviousLeftX(){return previousCenterX; }
+    public double getPreviousRightX(){return previousCenterX +50;}
     public double getPreviousBottomY(){
         return previousBottomY;
     }
 
-//    public void landOnPlatformCheck(CanvasWindow canvas){
-//        GraphicsObject platform = canvas.
-//    }
 }
 
 

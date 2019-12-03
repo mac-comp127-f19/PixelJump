@@ -24,7 +24,8 @@ public class PixelJump {
             canvas.pause(20);
         }
         );
-       canvas.onMouseMove(event -> { pixel.pixelMove();});
+       canvas.onMouseMove(event -> { pixel.pixelMove();
+          });
    }
     public static void main(String args[]){
        new PixelJump();

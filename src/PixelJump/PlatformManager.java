@@ -26,8 +26,8 @@ Pixel pixel;
  public PlatformManager(CanvasWindow canvas,Pixel pixel){
 
      this.canvas=canvas;
-     this.platformWidth=(canvas.getWidth()*0.1);
-     this.platformHeight=(canvas.getHeight()*0.01);
+     this.platformWidth=(canvas.getWidth()*0.2);
+     this.platformHeight=(canvas.getHeight()*0.03);
      this.maxX=canvas.getWidth();
      this.maxY=60;
      this.currentY=canvas.getHeight()-20;
@@ -65,14 +65,14 @@ Pixel pixel;
  public void pixelLands() {
      for (Platform platform : platforms) {
          if (platform.getRightX() > pixel.getBottomRightX() && platform.getLeftX() < pixel.getBottomLeftX()) {
-             System.out.println("HI");
-             if (pixel.getPreviousBottomY()< platform.getTopYPosition() && pixel.getCurrentBottomY() > platform.getTopYPosition()) {
+             if (pixel.getPreviousBottomY() <= platform.getTopYPosition() && pixel.getCurrentBottomY() >= platform.getTopYPosition()) {
 //                 pixel.setMaxYAndBaseY(platform.getTopYPosition(), platform.getTopYPosition());
                  System.out.println("Hi");
              }
          }
      }
  }
+
 
  public void removeSinglePlatform(){
 
