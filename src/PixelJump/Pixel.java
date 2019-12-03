@@ -9,13 +9,13 @@ import java.awt.*;
 import java.awt.Point;
 
 public class Pixel {
-    public static final double GRAVITY = -100;
+  //  public static final double GRAVITY = -100;
     public GraphicsGroup pixel = new GraphicsGroup();
     private Rectangle pixelBody;
     private Ellipse eye1, eye2, eyeBall1, eyeBall2;
     private Arc mouth;
     private Color bodyColor = new Color(100, 150, 200);
-    private double currentCenterX, currentCenterY, yVelocity, maxY, xVelocity, velocity, currentYVelocity, baseY, previousBottomY, previousCenterX;
+    private double currentCenterX, currentCenterY, yVelocity, maxY, xVelocity, velocity, currentYVelocity, baseY, previousBottomPixelY, previousCenterX, currentBottomPixelY;
 
     /* sets up body parts of pixel*/
     public Pixel() {
@@ -25,7 +25,7 @@ public class Pixel {
         eyeBall1 = new Ellipse(PixelJump.CANVAS_WIDTH / 2 + 2, PixelJump.CANVAS_HEIGHT - 55, 11, 15);
         eyeBall2 = new Ellipse(PixelJump.CANVAS_WIDTH / 2 + 26, PixelJump.CANVAS_HEIGHT - 55, 11, 15);
         mouth = new Arc(PixelJump.CANVAS_WIDTH / 2 + 20, PixelJump.CANVAS_HEIGHT - 28, 10, 10, 180, 180);
-        velocity = -10;
+        velocity = -5;
         drawPixel();
     }
 
@@ -64,32 +64,32 @@ public class Pixel {
         maxY = pixel.getY() - 100;
         yVelocity = velocity;
         baseY = 0;
-        previousBottomY = pixelBody.getY()+50;
-        previousCenterX = pixelBody.getX();
-
+        previousBottomPixelY  = pixel.getY()+590;
+        currentBottomPixelY = pixel.getY()+590;
 
     }
 
     /* moves pixel up and down, currently does not take in when the user drags the pixel to left or right or when it hits a platform*/
     /* graphics group initial position is 0,0, so to move up velocity must be negative. It moves up to a max height of 100, which means that the pixel each jump can only go up 100. right now it is set up so when the graphics group goes back to its initial position it bounces back up*/
     public void pixelContinuousJump() {
-        previousBottomY = pixelBody.getY()+50;
+      //  System.out.println(baseY);
+        previousBottomPixelY = currentBottomPixelY;
         pixel.setPosition(currentCenterX, currentCenterY);
         currentCenterY += yVelocity;
-//        yVelocity += GRAVITY*.5;
+        currentBottomPixelY+=yVelocity;
+        // changes the same amount current Y changes
         if (currentCenterY < maxY) {
             yVelocity *= -1;
         }
         if (currentCenterY > baseY) {
             yVelocity *= -1;
         }
-        getCurrentBottomY();
+
     }
 
 
     public void pixelMove() {
         Point p = MouseInfo.getPointerInfo().getLocation();
-        previousCenterX= pixelBody.getX();
        if(p.x <  50){
            currentCenterX = -1*PixelJump.CANVAS_WIDTH / 2;
        }
@@ -104,15 +104,15 @@ public class Pixel {
         pixel.setPosition(currentCenterX, currentCenterY);
     }
 
-    public void setMaxYAndBaseY(double newMaxY, double newBaseY){
-        maxY = newMaxY;
-        baseY = newBaseY;
+    public void setMaxYAndBaseY(double platformHeight){
+        maxY = maxY- platformHeight;
+        baseY -= (PixelJump.CANVAS_HEIGHT-platformHeight);
         currentCenterY = baseY;
+        pixel.setPosition(currentCenterX,baseY);
+
     }
 
-    public double getCurrentBottomY(){
-        return pixelBody.getY()+50;
-    }
+
     public double getBottomLeftX(){
         return pixelBody.getX();
     }
@@ -121,9 +121,13 @@ public class Pixel {
     }
     public double getPreviousLeftX(){return previousCenterX; }
     public double getPreviousRightX(){return previousCenterX +50;}
-    public double getPreviousBottomY(){
-        return previousBottomY;
+    public double getPreviousBottomPixelY(){
+       return previousBottomPixelY;
     }
+    public double getCurrentBottomPixelY(){
+        return currentBottomPixelY;
+    }
+
 
 }
 

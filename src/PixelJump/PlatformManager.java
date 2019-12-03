@@ -64,10 +64,10 @@ Pixel pixel;
 
  public void pixelLands() {
      for (Platform platform : platforms) {
-         if (platform.getRightX() > pixel.getBottomRightX() && platform.getLeftX() < pixel.getBottomLeftX()) {
-             if (pixel.getPreviousBottomY() <= platform.getTopYPosition() && pixel.getCurrentBottomY() >= platform.getTopYPosition()) {
-//                 pixel.setMaxYAndBaseY(platform.getTopYPosition(), platform.getTopYPosition());
+         if (platform.getRightX() > pixel.getBottomLeftX() && platform.getLeftX() < pixel.getBottomRightX()) {
+             if (pixel.getPreviousBottomPixelY() <= platform.getTopYPosition() && pixel.getCurrentBottomPixelY() >= platform.getTopYPosition()) {
                  System.out.println("Hi");
+                   //pixel.setMaxYAndBaseY(platform.getTopYPosition());
              }
          }
      }
