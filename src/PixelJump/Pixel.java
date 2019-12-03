@@ -25,7 +25,7 @@ public class Pixel {
         eyeBall1 = new Ellipse(PixelJump.CANVAS_WIDTH / 2 + 2, PixelJump.CANVAS_HEIGHT - 55, 11, 15);
         eyeBall2 = new Ellipse(PixelJump.CANVAS_WIDTH / 2 + 26, PixelJump.CANVAS_HEIGHT - 55, 11, 15);
         mouth = new Arc(PixelJump.CANVAS_WIDTH / 2 + 20, PixelJump.CANVAS_HEIGHT - 28, 10, 10, 180, 180);
-        velocity = -5;
+        velocity = -10;
         drawPixel();
     }
 
@@ -115,10 +115,10 @@ public class Pixel {
 
 
     public double getBottomLeftX(){
-        return pixelBody.getX();
+        return pixel.getX()+PixelJump.CANVAS_WIDTH/2;
     }
     public double getBottomRightX(){
-        return pixelBody.getX()+50;
+        return pixel.getX()+ PixelJump.CANVAS_WIDTH/2+ 50;
     }
     public double getPreviousLeftX(){return previousCenterX; }
     public double getPreviousRightX(){return previousCenterX +50;}

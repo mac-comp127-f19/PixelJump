@@ -27,7 +27,7 @@ Pixel pixel;
 
      this.canvas=canvas;
      this.platformWidth=(canvas.getWidth()*0.2);
-     this.platformHeight=(canvas.getHeight()*0.03);
+     this.platformHeight=(canvas.getHeight()*.03);
      this.maxX=canvas.getWidth();
      this.maxY=60;
      this.currentY=canvas.getHeight()-20;
@@ -66,11 +66,12 @@ Pixel pixel;
      for (Platform platform : platforms) {
          if (platform.getRightX() > pixel.getBottomLeftX() && platform.getLeftX() < pixel.getBottomRightX()) {
              if (pixel.getPreviousBottomPixelY() <= platform.getTopYPosition() && pixel.getCurrentBottomPixelY() >= platform.getTopYPosition()) {
-//                 System.out.println("Hi");
+                 System.out.println("Hi");
                  pixel.setMaxYAndBaseY(platform.getTopYPosition());
              }
          }
      }
+
  }
 
 

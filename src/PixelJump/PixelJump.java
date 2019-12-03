@@ -20,7 +20,7 @@ public class PixelJump {
    public void pixelJumpRun(){
         canvas.animate(()-> {
             pixel.pixelContinuousJump();
-            platformManager.pixelLands();
+                platformManager.pixelLands();
             canvas.pause(20);
         }
         );
