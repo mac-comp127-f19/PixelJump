@@ -28,7 +28,7 @@ public class PixelJump {
                 }
         );
         canvas.onMouseMove(event -> {
-//            pixel.pixelMove(event.getPosition());
+            pixel.pixelMove(event.getPosition());
         });
     }
 

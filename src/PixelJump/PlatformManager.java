@@ -43,10 +43,8 @@ public class PlatformManager {
     public void generatePlatforms() {
         platformCollection = new GraphicsGroup();
 
-//        while (currentY > maxY) {
+       while (currentY > maxY) {
             currentX = rand.nextDouble() * maxX;
-    currentX = 0;
-    currentY = 550;
             Platform platform = new Platform(currentX, currentY, platformWidth, platformHeight);
             platform.setStroked(true);
             platform.setStrokeColor(Color.ORANGE);
@@ -56,7 +54,7 @@ public class PlatformManager {
             platforms.add(platform);
             platformHeights.add(currentY);
             currentY -= (rand.nextDouble() * jumpRange);
-//        }
+       }
         canvas.add(platformCollection);
     }
 

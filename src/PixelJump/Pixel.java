@@ -11,8 +11,8 @@ import java.sql.SQLOutput;
 
 
 public class Pixel {
-    private static final double GRAVITY = .004,
-                                JUMP_VELOCITY = -1;
+    private static final double GRAVITY = .01,
+                                JUMP_VELOCITY = -1.3;
     public GraphicsGroup pixel = new GraphicsGroup();
     private Rectangle pixelBody;
     private Ellipse eye1, eye2, eyeBall1, eyeBall2;
@@ -20,14 +20,16 @@ public class Pixel {
     private Color bodyColor = new Color(100, 150, 200);
     private double yVelocity, previousBottomPixelY;
 
-    /* sets up body parts of pixel*/
+    /* sets up body parts of pixel at locations where the pixel lines up at the bottom and center of screen*/
+
     public Pixel() {
-        pixelBody = new Rectangle(PixelJump.CANVAS_WIDTH / 2, PixelJump.CANVAS_HEIGHT - 60, 50, 50);
-        eye1 = new Ellipse(PixelJump.CANVAS_WIDTH / 2 + 2, PixelJump.CANVAS_HEIGHT - 60, 22, 30);
-        eye2 = new Ellipse(PixelJump.CANVAS_WIDTH / 2 + 26, PixelJump.CANVAS_HEIGHT - 60, 22, 30);
-        eyeBall1 = new Ellipse(PixelJump.CANVAS_WIDTH / 2 + 2, PixelJump.CANVAS_HEIGHT - 55, 11, 15);
-        eyeBall2 = new Ellipse(PixelJump.CANVAS_WIDTH / 2 + 26, PixelJump.CANVAS_HEIGHT - 55, 11, 15);
-        mouth = new Arc(PixelJump.CANVAS_WIDTH / 2 + 20, PixelJump.CANVAS_HEIGHT - 28, 10, 10, 180, 180);
+        pixel.setPosition(0,0);
+        pixelBody = new Rectangle( 0,0, 50, 50);
+        eye1 = new Ellipse( 2,0, 22, 30);
+        eye2 = new Ellipse( 26, 0, 22, 30);
+        eyeBall1 = new Ellipse( 2, 5, 11, 15);
+        eyeBall2 = new Ellipse(  26, 5, 11, 15);
+        mouth = new Arc(20, 30, 10, 10, 180, 180);
         bounce();
         drawPixel();
     }
@@ -61,12 +63,12 @@ public class Pixel {
         mouth.setStrokeColor(Color.lightGray);
         mouth.setStroked(true);
         pixel.add(mouth);
+        pixel.setPosition(PixelJump.CANVAS_WIDTH / 2,PixelJump.CANVAS_HEIGHT - 60);
 
         previousBottomPixelY = pixel.getY() + 590;
     }
 
     public void pixelContinuousJump() {
-        //  System.out.println(baseY);
         previousBottomPixelY = getCurrentBottomPixel();
         pixel.moveBy(0, yVelocity);
         yVelocity += GRAVITY;
@@ -75,8 +77,6 @@ public class Pixel {
 
     public void pixelMove(Point mousePosition) {
         pixel.setCenter(mousePosition.getX(), pixel.getCenter().getY());
-        System.out.println(pixel.getCenter());
-     //   pixel.setCenter(pixel.getCenter());
     }
 
 
@@ -90,7 +90,6 @@ public class Pixel {
     }
 
     public boolean didJustCrossPlatform(Platform platform){
-        System.out.println(platform.getRightX() + "   " + pixel.getX());
         return platform.getRightX() > pixel.getX()
                 && platform.getLeftX() < pixel.getWidth()+pixel.getX()
                 && previousBottomPixelY <= platform.getTopYPosition()
