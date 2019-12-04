@@ -11,7 +11,7 @@ import java.sql.SQLOutput;
 
 
 public class Pixel {
-    private static final double GRAVITY = .01,
+    private static final double GRAVITY = .008,
                                 JUMP_VELOCITY = -1.3;
     public GraphicsGroup pixel = new GraphicsGroup();
     private Rectangle pixelBody;
