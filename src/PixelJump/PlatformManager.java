@@ -81,12 +81,17 @@ public class PlatformManager {
         if(pixel.getCurrentBottomPixel()<=(canvas.getHeight())*0.5){
             for(Platform platform: platforms){
                 platform.setPosition(platform.getLeftX(),platform.getTopYPosition()+100);
-            }
+                System.out.println(platform.getTopYPosition());
+                }
             generatePlatforms();
             currentY=pixel.getCurrentBottomPixel();
             pixel.pixelPositionWhenMovingUp();
+            }
+
+
         }
 
     }
 
-}
+
+
