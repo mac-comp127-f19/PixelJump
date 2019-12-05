@@ -1,6 +1,10 @@
 package PixelJump;
 
 import comp127graphics.CanvasWindow;
+import comp127graphics.FontStyle;
+import comp127graphics.GraphicsText;
+
+import java.awt.*;
 
 public class PixelJump {
     public static final int CANVAS_WIDTH = 600;
@@ -16,20 +20,35 @@ public class PixelJump {
         pixel.addToCanvas(canvas);
         pixelJumpRun();
         platformManager.generatePlatforms();
-        Platform startingPlatform = new Platform(CANVAS_WIDTH/2, CANVAS_HEIGHT-10, 100, 30);
-        canvas.add(startingPlatform);
 
     }
 
     public void pixelJumpRun() {
         canvas.animate(() -> {
-                   pixel.pixelContinuousJump();
-                   platformManager.pixelLands();
+            if(pixel.getCurrentBottomPixel()<CANVAS_HEIGHT) {
+            pixel.pixelContinuousJump();
+            System.out.println(pixel.getCurrentBottomPixel());
+            platformManager.pixelLands();
+                }
+            else{
+                endGame();
+            }
                 }
         );
-        canvas.onMouseMove(event -> {
+        canvas.onMouseMove(event -> { if(pixel.getCurrentBottomPixel()<CANVAS_HEIGHT) {
             pixel.pixelMove(event.getPosition());
+        }
         });
+    }
+    public void endGame(){
+        canvas.removeAll();
+        GraphicsText endGame = new GraphicsText("You Lost");
+        endGame.setCenter(150, CANVAS_HEIGHT/2);
+        endGame.setFont(FontStyle.BOLD, 50);
+        endGame.setFillColor(Color.BLUE);
+        endGame.setFilled(true);
+        canvas.add(endGame);
+
     }
 
     public static void main(String args[]) {
