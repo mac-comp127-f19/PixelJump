@@ -29,13 +29,13 @@ public class PixelJump {
             if(pixel.getCurrentBottomPixel()<CANVAS_HEIGHT) {
             pixel.pixelContinuousJump();
             platformManager.pixelLands();
-            platformManager.updatePlatforms();
                 }
             else{
                 endGame();
             }
                 }
         );
+        canvas.animate(()->{platformManager.updatePlatforms();});
         canvas.onMouseMove(event -> { if(pixel.getCurrentBottomPixel()<CANVAS_HEIGHT) {
             pixel.pixelMove(event.getPosition());
         }

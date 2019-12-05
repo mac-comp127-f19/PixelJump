@@ -107,6 +107,9 @@ public class Pixel {
                 && previousBottomPixelY <= platform.getTopYPosition()
                 && getCurrentBottomPixel() >= platform.getTopYPosition();
     }
+    public void pixelPositionWhenMovingUp(){
+        pixel.setPosition(PixelJump.CANVAS_WIDTH/2-10,PixelJump.CANVAS_HEIGHT/2);
+    }
 }
 
 

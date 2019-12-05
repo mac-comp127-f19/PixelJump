@@ -36,12 +36,12 @@ public class PlatformManager {
         this.pixel = pixel;
         platformHeights = new ArrayList<>();
         platforms = new ArrayList<>();
+        platformCollection = new GraphicsGroup();
 //     pixelY=pixel.getY();//assume we have the method to get y for now
 
     }
 
     public void generatePlatforms() {
-        platformCollection = new GraphicsGroup();
 
        while (currentY > maxY) {
             currentX = rand.nextDouble() * maxX;
@@ -80,10 +80,11 @@ public class PlatformManager {
     public void updatePlatforms(){
         if(pixel.getCurrentBottomPixel()<=(canvas.getHeight())*0.5){
             for(Platform platform: platforms){
-                platform.setPosition(platform.getLeftX(),platform.getTopYPosition()+50);
+                platform.setPosition(platform.getLeftX(),platform.getTopYPosition()+100);
             }
-            currentY=pixel.getCurrentBottomPixel();
             generatePlatforms();
+            currentY=pixel.getCurrentBottomPixel();
+            pixel.pixelPositionWhenMovingUp();
         }
 
     }
