@@ -29,6 +29,7 @@ public class PixelJump {
             pixel.pixelContinuousJump();
             System.out.println(pixel.getCurrentBottomPixel());
             platformManager.pixelLands();
+            platformManager.updatePlatforms();
                 }
             else{
                 endGame();
