@@ -77,6 +77,15 @@ public class PlatformManager {
     public void removeAllPlatform() {
         platformCollection.removeAll();
     }
+    public void updatePlatforms(){
+        if(pixel.getCurrentBottomPixel()<=(canvas.getHeight())*0.5){
+            for(Platform platform: platforms){
+                platform.setPosition(platform.getLeftX(),platform.getTopYPosition()+50);
+            }
+            currentY=pixel.getCurrentBottomPixel();
+            generatePlatforms();
+        }
 
+    }
 
 }
