@@ -15,6 +15,7 @@ public class PixelJump {
     PlatformManager platformManager;
 
     public PixelJump() {
+        canvas.setBackground(Color.CYAN);
         pixel = new Pixel();
         platformManager = new PlatformManager(canvas, pixel);
         pixel.addToCanvas(canvas);
@@ -27,7 +28,6 @@ public class PixelJump {
         canvas.animate(() -> {
             if(pixel.getCurrentBottomPixel()<CANVAS_HEIGHT) {
             pixel.pixelContinuousJump();
-            System.out.println(pixel.getCurrentBottomPixel());
             platformManager.pixelLands();
                 }
             else{
@@ -42,12 +42,14 @@ public class PixelJump {
     }
     public void endGame(){
         canvas.removeAll();
-        GraphicsText endGame = new GraphicsText("You Lost");
-        endGame.setCenter(150, CANVAS_HEIGHT/2);
-        endGame.setFont(FontStyle.BOLD, 50);
-        endGame.setFillColor(Color.BLUE);
+        canvas.setBackground(Color.ORANGE);
+        GraphicsText endGame = new GraphicsText("You Lost!");
+        endGame.setCenter(175, CANVAS_HEIGHT/2);
+        endGame.setFont(FontStyle.BOLD_ITALIC, 50);
+        endGame.setFillColor(Color.CYAN);
         endGame.setFilled(true);
         canvas.add(endGame);
+
 
     }
 

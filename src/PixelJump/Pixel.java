@@ -77,6 +77,18 @@ public class Pixel {
 
     public void pixelMove(Point mousePosition) {
         pixel.setCenter(mousePosition.getX(), pixel.getCenter().getY());
+        changeEyeBallPosition(mousePosition);
+    }
+
+    public void changeEyeBallPosition(Point mousePosition){
+        if(mousePosition.getX()< (PixelJump.CANVAS_WIDTH/2)+25){
+            eyeBall1.setPosition(2, 5);
+            eyeBall2.setPosition(26,5);
+        }
+        else{
+            eyeBall1.setPosition(13,5);
+            eyeBall2.setPosition(37,5);
+        }
     }
 
 
