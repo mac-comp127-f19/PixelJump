@@ -37,7 +37,9 @@ public class PlatformManager {
         platformHeights = new ArrayList<>();
         platforms = new ArrayList<>();
         platformCollection = new GraphicsGroup();
-//     pixelY=pixel.getY();//assume we have the method to get y for now
+        for(int i = 0; i <100; i++){
+            platformCollection.add(new Platform(rand.nextDouble()*maxX, 200, platformWidth,platformHeight));
+        }
 
     }
 
