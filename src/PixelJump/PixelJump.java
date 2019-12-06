@@ -26,26 +26,29 @@ public class PixelJump {
 
     public void pixelJumpRun() {
         canvas.animate(() -> {
-            if(pixel.getCurrentBottomPixel()<CANVAS_HEIGHT) {
-            pixel.pixelContinuousJump();
-            platformManager.pixelLands();
-                }
-            else{
-                endGame();
-            }
+                    if (pixel.getCurrentBottomPixel() < CANVAS_HEIGHT) {
+                        pixel.pixelContinuousJump();
+                        platformManager.pixelLands();
+                    } else {
+                        endGame();
+                    }
                 }
         );
-        canvas.animate(()->{platformManager.updatePlatforms();});
-        canvas.onMouseMove(event -> { if(pixel.getCurrentBottomPixel()<CANVAS_HEIGHT) {
-            pixel.pixelMove(event.getPosition());
-        }
+        canvas.animate(() -> {
+            platformManager.updatePlatforms(pixel.getCurrentBottomPixel()+50);
+        });
+        canvas.onMouseMove(event -> {
+            if (pixel.getCurrentBottomPixel() < CANVAS_HEIGHT) {
+                pixel.pixelMove(event.getPosition());
+            }
         });
     }
-    public void endGame(){
+
+    public void endGame() {
         canvas.removeAll();
         canvas.setBackground(Color.ORANGE);
         GraphicsText endGame = new GraphicsText("You Lost!");
-        endGame.setCenter(175, CANVAS_HEIGHT/2);
+        endGame.setCenter(175, CANVAS_HEIGHT / 2);
         endGame.setFont(FontStyle.BOLD_ITALIC, 50);
         endGame.setFillColor(Color.CYAN);
         endGame.setFilled(true);

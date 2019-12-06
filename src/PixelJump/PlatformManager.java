@@ -43,7 +43,7 @@ public class PlatformManager {
 
     public void generatePlatforms() {
 
-       while (currentY > maxY) {
+        while (currentY > maxY) {
             currentX = rand.nextDouble() * maxX;
             Platform platform = new Platform(currentX, currentY, platformWidth, platformHeight);
             platform.setStroked(true);
@@ -54,7 +54,7 @@ public class PlatformManager {
             platforms.add(platform);
             platformHeights.add(currentY);
             currentY -= (rand.nextDouble() * jumpRange);
-       }
+        }
         canvas.add(platformCollection);
     }
 
@@ -77,16 +77,19 @@ public class PlatformManager {
     public void removeAllPlatform() {
         platformCollection.removeAll();
     }
-    public void updatePlatforms(){
-        if(pixel.getCurrentBottomPixel()<=(canvas.getHeight())*0.5){
-            for(Platform platform: platforms){
-                platform.setPosition(platform.getLeftX(),platform.getTopYPosition()+100);
-            }
-            generatePlatforms();
-            currentY=pixel.getCurrentBottomPixel();
-            pixel.pixelPositionWhenMovingUp();
-        }
 
+    public void updatePlatforms(double pixelY) {
+        double difference = canvas.getHeight() / 2 - pixelY;
+        if (difference > 0) {
+            for(Platform platform: platforms){
+                platform.moveBy(0, difference);
+            }
+            pixel.pixelPositionWhenMovingUp(difference);
+            currentY += difference;
+            generatePlatforms();
+        }
     }
 
 }
+
+
