@@ -23,7 +23,6 @@ public class PlatformManager {
     private double currentX;
     private Random rand;
     Pixel pixel;
-    private int numberOfPlatforms;
 
     public PlatformManager(CanvasWindow canvas, Pixel pixel) {
 
@@ -99,6 +98,7 @@ public class PlatformManager {
 
     public void removePlatforms(List<Platform> platformsToBeRemoved){
         for(Platform platform: platformsToBeRemoved) {
+            platformCollection.remove(platform);
            platforms.remove(platform);
         }
     }
