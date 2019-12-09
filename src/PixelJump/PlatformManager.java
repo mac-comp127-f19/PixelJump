@@ -19,7 +19,6 @@ public class PlatformManager {
     private double maxX;
     private double maxY;
     //private double pixelY;
-    private double YDistanceMoved;
     private double currentY; // the position of the current platform
     private double currentX;
     private Random rand;
@@ -39,11 +38,6 @@ public class PlatformManager {
         platformHeights = new ArrayList<>();
         platforms = new ArrayList<>();
         platformCollection = new GraphicsGroup();
-        this.YDistanceMoved=800;
-//        for(int i = 0; i <100; i++){
-//            platformCollection.add(new Platform(rand.nextDouble()*maxX, 200, platformWidth,platformHeight));
-//        }
-
     }
 
     public void generatePlatforms() {
@@ -72,10 +66,6 @@ public class PlatformManager {
     }
 
 
-    public void removeSinglePlatform() {
-
-    }
-
     /**
      * Remove all platforms when the pixel is lower than the lower boundary
      */
@@ -84,22 +74,22 @@ public class PlatformManager {
     }
 
     public void updatePlatforms(double pixelY) {
-        System.out.println(pixelY);
+        List<Platform> platformsToBeRemoved = new ArrayList<Platform>();
+        System.out.println(getNumberOfPlatforms());
         double difference = canvas.getHeight() / 2 - pixelY;
         if (difference > 0) {
             for(Platform platform: platforms){
                 platform.moveBy(0, difference);
-
-                if(platform.getTopYPosition()>YDistanceMoved){
-                    platforms.remove(platform);
-                    platformCollection.remove(platform);
+                if(platform.getTopYPosition()>canvas.getHeight()){
+                    platformsToBeRemoved.add(platform);
                 }
             }
+            removePlatforms(platformsToBeRemoved);
             pixel.pixelPositionWhenMovingUp(difference);
             currentY += difference;
-            YDistanceMoved+=difference;
             generatePlatforms();
         }
+        System.out.println(platformsToBeRemoved);
 
     }
 
@@ -107,9 +97,12 @@ public class PlatformManager {
         return platforms.size();
     }
 
-    public double getYDistanceMoved() {
-        return YDistanceMoved;
+    public void removePlatforms(List<Platform> platformsToBeRemoved){
+        for(Platform platform: platformsToBeRemoved) {
+           platforms.remove(platform);
+        }
     }
+
 }
 
 

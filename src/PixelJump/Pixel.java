@@ -72,7 +72,6 @@ public class Pixel {
         previousBottomPixelY = getCurrentBottomPixel();
         pixel.moveBy(0, yVelocity);
         yVelocity += GRAVITY;
-        System.out.println(yVelocity);
     }
 
 

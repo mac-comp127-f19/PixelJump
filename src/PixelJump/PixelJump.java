@@ -31,7 +31,6 @@ public class PixelJump {
                         platformManager.pixelLands();
                     } else {
                         endGame();
-                        System.out.println(platformManager.getYDistanceMoved());
                     }
                 }
         );
