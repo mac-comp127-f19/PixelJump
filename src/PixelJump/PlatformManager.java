@@ -19,10 +19,12 @@ public class PlatformManager {
     private double maxX;
     private double maxY;
     //private double pixelY;
+    private double YDistanceMoved;
     private double currentY; // the position of the current platform
     private double currentX;
     private Random rand;
     Pixel pixel;
+    private int numberOfPlatforms;
 
     public PlatformManager(CanvasWindow canvas, Pixel pixel) {
 
@@ -37,9 +39,10 @@ public class PlatformManager {
         platformHeights = new ArrayList<>();
         platforms = new ArrayList<>();
         platformCollection = new GraphicsGroup();
-        for(int i = 0; i <100; i++){
-            platformCollection.add(new Platform(rand.nextDouble()*maxX, 200, platformWidth,platformHeight));
-        }
+        this.YDistanceMoved=800;
+//        for(int i = 0; i <100; i++){
+//            platformCollection.add(new Platform(rand.nextDouble()*maxX, 200, platformWidth,platformHeight));
+//        }
 
     }
 
@@ -81,17 +84,32 @@ public class PlatformManager {
     }
 
     public void updatePlatforms(double pixelY) {
+        System.out.println(pixelY);
         double difference = canvas.getHeight() / 2 - pixelY;
         if (difference > 0) {
             for(Platform platform: platforms){
                 platform.moveBy(0, difference);
+
+                if(platform.getTopYPosition()>YDistanceMoved){
+                    platforms.remove(platform);
+                    platformCollection.remove(platform);
+                }
             }
             pixel.pixelPositionWhenMovingUp(difference);
             currentY += difference;
+            YDistanceMoved+=difference;
             generatePlatforms();
         }
+
     }
 
+    public int getNumberOfPlatforms() {
+        return platforms.size();
+    }
+
+    public double getYDistanceMoved() {
+        return YDistanceMoved;
+    }
 }
 
 
