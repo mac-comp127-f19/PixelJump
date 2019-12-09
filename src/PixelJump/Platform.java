@@ -1,4 +1,5 @@
 package PixelJump;
+import comp127graphics.CanvasWindow;
 import comp127graphics.Rectangle;
 public class Platform extends Rectangle {
 
