@@ -37,12 +37,13 @@ public class PlatformManager {
         platformHeights = new ArrayList<>();
         platforms = new ArrayList<>();
         platformCollection = new GraphicsGroup();
+
     }
 
     public void generatePlatforms() {
 
         while (currentY > maxY) {
-            currentX = rand.nextDouble() * maxX;
+            currentX = rand.nextDouble() * maxX*0.8;
             Platform platform = new Platform(currentX, currentY, platformWidth, platformHeight);
             platform.setStroked(true);
             platform.setStrokeColor(Color.ORANGE);
@@ -51,7 +52,7 @@ public class PlatformManager {
             platformCollection.add(platform);
             platforms.add(platform);
             platformHeights.add(currentY);
-            currentY -= (rand.nextDouble() * jumpRange);
+            currentY -= (rand.nextDouble() * jumpRange*0.7 + 30);
         }
         canvas.add(platformCollection);
     }
@@ -100,6 +101,7 @@ public class PlatformManager {
         for(Platform platform: platformsToBeRemoved) {
             platformCollection.remove(platform);
            platforms.remove(platform);
+
         }
     }
 

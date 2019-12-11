@@ -29,6 +29,7 @@ public class PixelJump {
                     if (pixel.getCurrentBottomPixel() < CANVAS_HEIGHT) {
                         pixel.pixelContinuousJump();
                         platformManager.pixelLands();
+//                        platformManager.updatePlatforms(pixel.getCurrentBottomPixel()+50);
                     } else {
                         endGame();
                     }
