@@ -5,12 +5,14 @@ import comp127graphics.FontStyle;
 import comp127graphics.GraphicsText;
 
 import java.awt.*;
+import java.util.Random;
 
 public class PixelJump {
     public static final int CANVAS_WIDTH = 600;
     public static final int CANVAS_HEIGHT = 600;
     CanvasWindow canvas = new CanvasWindow("", CANVAS_WIDTH, CANVAS_HEIGHT);
     Pixel pixel;
+    Random rand;
 
     PlatformManager platformManager;
 
@@ -20,8 +22,9 @@ public class PixelJump {
         platformManager = new PlatformManager(canvas, pixel);
         pixel.addToCanvas(canvas);
         pixelJumpRun();
+        platformManager.generateSinglePlatform();
         platformManager.generatePlatforms();
-
+        rand = new Random();
     }
 
     public void pixelJumpRun() {
@@ -29,15 +32,17 @@ public class PixelJump {
                     if (pixel.getCurrentBottomPixel() < CANVAS_HEIGHT) {
                         pixel.pixelContinuousJump();
                         platformManager.pixelLands();
-//                        platformManager.updatePlatforms(pixel.getCurrentBottomPixel()+50);
+
                     } else {
                         endGame();
                     }
                 }
         );
+
         canvas.animate(() -> {
             platformManager.updatePlatforms(pixel.getCurrentBottomPixel()+50);
         });
+        canvas.animate(()-> platformManager.movingPlatforms());
         canvas.onMouseMove(event -> {
             if (pixel.getCurrentBottomPixel() < CANVAS_HEIGHT) {
                 pixel.pixelMove(event.getPosition());
