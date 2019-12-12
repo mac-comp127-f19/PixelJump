@@ -9,13 +9,22 @@ import java.awt.*;
 public class PixelJump {
     public static final int CANVAS_WIDTH = 600;
     public static final int CANVAS_HEIGHT = 600;
+    private static int score;
+    private static GraphicsText scoreCount;
     CanvasWindow canvas = new CanvasWindow("", CANVAS_WIDTH, CANVAS_HEIGHT);
     Pixel pixel;
 
     PlatformManager platformManager;
 
     public PixelJump() {
+        score = 0;
         canvas.setBackground(Color.CYAN);
+        scoreCount = new GraphicsText("Score: "+ score);
+        scoreCount.setFont(FontStyle.BOLD_ITALIC, 25);
+        scoreCount.setCenter(CANVAS_WIDTH/2,25);
+        scoreCount.setFillColor(Color.WHITE);
+        scoreCount.setFilled(true);
+        canvas.add(scoreCount);
         pixel = new Pixel();
         platformManager = new PlatformManager(canvas, pixel);
         pixel.addToCanvas(canvas);
@@ -29,7 +38,6 @@ public class PixelJump {
                     if (pixel.getCurrentBottomPixel() < CANVAS_HEIGHT) {
                         pixel.pixelContinuousJump();
                         platformManager.pixelLands();
-//                        platformManager.updatePlatforms(pixel.getCurrentBottomPixel()+50);
                     } else {
                         endGame();
                     }
@@ -56,6 +64,11 @@ public class PixelJump {
         canvas.add(endGame);
 
 
+    }
+
+    public static void incrementScore(){
+        score += 10;
+        scoreCount.setText("Score: " + score);
     }
 
     public static void main(String args[]) {

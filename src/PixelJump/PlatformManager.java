@@ -37,11 +37,10 @@ public class PlatformManager {
         platformHeights = new ArrayList<>();
         platforms = new ArrayList<>();
         platformCollection = new GraphicsGroup();
-
+        canvas.add(platformCollection);
     }
 
     public void generatePlatforms() {
-
         while (currentY > maxY) {
             currentX = rand.nextDouble() * maxX*0.8;
             Platform platform = new Platform(currentX, currentY, platformWidth, platformHeight);
@@ -54,7 +53,6 @@ public class PlatformManager {
             platformHeights.add(currentY);
             currentY -= (rand.nextDouble() * jumpRange*0.7 + 30);
         }
-        canvas.add(platformCollection);
     }
 
     public void pixelLands() {
@@ -75,7 +73,6 @@ public class PlatformManager {
 
     public void updatePlatforms(double pixelY) {
         List<Platform> platformsToBeRemoved = new ArrayList<Platform>();
-        System.out.println(getNumberOfPlatforms());
         double difference = canvas.getHeight() / 2 - pixelY;
         if (difference > 0) {
             for(Platform platform: platforms){
@@ -89,7 +86,6 @@ public class PlatformManager {
             currentY += difference;
             generatePlatforms();
         }
-        System.out.println(platformsToBeRemoved);
 
     }
 
@@ -103,6 +99,7 @@ public class PlatformManager {
            platforms.remove(platform);
 
         }
+        PixelJump.incrementScore();
     }
 
 }
