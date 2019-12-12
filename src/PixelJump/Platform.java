@@ -14,7 +14,7 @@ public class Platform extends Rectangle {
     public Platform(double positionX, double positionY, double platformWidth, double platformHeight) {
         super(positionX, positionY, platformWidth, platformHeight);
 
-        if(random.nextDouble() * 100 <= 20){
+        if(random.nextDouble() * 100 <= 50){
             xVelocity = random.nextDouble()*10 - 5;
         }
     }
