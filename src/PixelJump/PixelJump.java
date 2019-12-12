@@ -56,9 +56,9 @@ public class PixelJump {
     public void endGame() {
         canvas.removeAll();
         canvas.setBackground(Color.ORANGE);
-        GraphicsText endGame = new GraphicsText("You Lost!");
+        GraphicsText endGame = new GraphicsText("You Lost! Your Score Was: " + score);
         endGame.setCenter(175, CANVAS_HEIGHT / 2);
-        endGame.setFont(FontStyle.BOLD_ITALIC, 50);
+        endGame.setFont(FontStyle.BOLD_ITALIC, 30);
         endGame.setFillColor(Color.CYAN);
         endGame.setFilled(true);
         canvas.add(endGame);
