@@ -9,8 +9,8 @@ import java.awt.*;
 public class PixelJump {
     public static final int CANVAS_WIDTH = 600;
     public static final int CANVAS_HEIGHT = 600;
-    private static int score;
-    private static GraphicsText scoreCount;
+    private static int score; // probably should not be static
+    private static GraphicsText scoreCount; // probably should not be static
     CanvasWindow canvas = new CanvasWindow("", CANVAS_WIDTH, CANVAS_HEIGHT);
     Pixel pixel;
 

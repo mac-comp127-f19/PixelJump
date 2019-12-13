@@ -13,7 +13,6 @@ public class PlatformManager {
     private GraphicsGroup platformCollection;
     private List<Platform> platforms;
     private List<Double> platformHeights;
-    private List<Platform> platformsToBeRemoved;
     private double platformWidth;
     private double platformHeight;
     private static final double jumpRange = 100;
@@ -21,7 +20,7 @@ public class PlatformManager {
     private double maxY;
     private double currentY; // the position of the current platform
     private Random rand;
-    Pixel pixel;
+    Pixel pixel;  // should be private
 
     public PlatformManager(CanvasWindow canvas, Pixel pixel) {
 
@@ -37,7 +36,6 @@ public class PlatformManager {
         platformHeights = new ArrayList<>();
         platforms = new ArrayList<>();
         platformCollection = new GraphicsGroup();
-        platformsToBeRemoved = new ArrayList<>();
         canvas.add(platformCollection);
     }
 // something is wrong with initializing the platform
@@ -81,10 +79,9 @@ public class PlatformManager {
     }
 
     public void updatePlatforms(double pixelY) {
-
-
         double difference = canvas.getHeight() / 2 - pixelY;
         if (difference > 0) {
+            List<Platform> platformsToBeRemoved = new ArrayList<>();
             for (Platform platform : platforms) {
                 platform.moveBy(0, difference);
                 if (platform.getTopYPosition() > canvas.getHeight()) {
@@ -95,10 +92,7 @@ public class PlatformManager {
             pixel.pixelPositionWhenMovingUp(difference);
             currentY += difference;
             generatePlatforms();
-
         }
-
-
     }
 
     public int getNumberOfPlatforms() {
@@ -109,8 +103,6 @@ public class PlatformManager {
         for (Platform platform : platformsToBeRemoved) {
             platformCollection.remove(platform);
             platforms.remove(platform);
-
-
         }
         PixelJump.incrementScore();
     }
