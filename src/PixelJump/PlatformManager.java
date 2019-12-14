@@ -12,17 +12,15 @@ public class PlatformManager {
     private CanvasWindow canvas;
     private GraphicsGroup platformCollection;
     private List<Platform> platforms;
-    private List<Double> platformHeights;
+
     private double platformWidth;
     private double platformHeight;
     private static final double jumpRange = 100;
     private double maxX;
     private double maxY;
-    //private double pixelY;
     private double currentY; // the position of the current platform
-    private double currentX;
     private Random rand;
-    Pixel pixel;
+    Pixel pixel;  // should be private
 
     public PlatformManager(CanvasWindow canvas, Pixel pixel) {
 
@@ -31,18 +29,32 @@ public class PlatformManager {
         this.platformHeight = (canvas.getHeight() * .03);
         this.maxX = canvas.getWidth();
         this.maxY = 60;
-        this.currentY = canvas.getHeight() - 20;
+        this.currentY = canvas.getHeight() - 50;
+
         rand = new Random();
         this.pixel = pixel;
-        platformHeights = new ArrayList<>();
+
         platforms = new ArrayList<>();
         platformCollection = new GraphicsGroup();
         canvas.add(platformCollection);
     }
 
+    public Platform generateStartingPlatform(){
+        Platform platform = new Platform(0,canvas.getHeight(),canvas.getWidth(),1);
+        platform.setStroked(false);
+        platform.setFilled(false);
+
+        platforms.add(platform);
+        platformCollection.add(platform);
+
+        return platform;
+    }
+
+
     public void generatePlatforms() {
+
         while (currentY > maxY) {
-            currentX = rand.nextDouble() * maxX*0.8;
+            double currentX = (rand.nextDouble() * maxX * 0.8) + 20;
             Platform platform = new Platform(currentX, currentY, platformWidth, platformHeight);
             platform.setStroked(true);
             platform.setStrokeColor(Color.ORANGE);
@@ -50,34 +62,28 @@ public class PlatformManager {
             platform.setFillColor(Color.ORANGE);
             platformCollection.add(platform);
             platforms.add(platform);
-            platformHeights.add(currentY);
-            currentY -= (rand.nextDouble() * jumpRange*0.7 + 30);
+            System.out.println(platforms.size());
+            currentY -= (rand.nextDouble() * jumpRange * 0.7 + 30);
+
         }
+
     }
 
     public void pixelLands() {
         for (Platform platform : platforms) {
             if (pixel.didJustCrossPlatform(platform)) {
-                pixel.bounce();
+                pixel.bounceOff(platform);
             }
         }
     }
 
-
-    /**
-     * Remove all platforms when the pixel is lower than the lower boundary
-     */
-    public void removeAllPlatform() {
-        platformCollection.removeAll();
-    }
-
     public void updatePlatforms(double pixelY) {
-        List<Platform> platformsToBeRemoved = new ArrayList<Platform>();
         double difference = canvas.getHeight() / 2 - pixelY;
         if (difference > 0) {
-            for(Platform platform: platforms){
+            List<Platform> platformsToBeRemoved = new ArrayList<>();
+            for (Platform platform : platforms) {
                 platform.moveBy(0, difference);
-                if(platform.getTopYPosition()>canvas.getHeight()){
+                if (platform.getTopYPosition() > canvas.getHeight()) {
                     platformsToBeRemoved.add(platform);
                 }
             }
@@ -86,21 +92,30 @@ public class PlatformManager {
             currentY += difference;
             generatePlatforms();
         }
-
     }
 
-    public int getNumberOfPlatforms() {
-        return platforms.size();
-    }
 
-    public void removePlatforms(List<Platform> platformsToBeRemoved){
-        for(Platform platform: platformsToBeRemoved) {
+
+    public void removePlatforms(List<Platform> platformsToBeRemoved) {
+        for (Platform platform : platformsToBeRemoved) {
             platformCollection.remove(platform);
-           platforms.remove(platform);
-
+            platforms.remove(platform);
         }
         PixelJump.incrementScore();
     }
+
+    /**
+     * for each platform in the moving platform list, move them back and forth on certain y-value
+     */
+    public void movingPlatforms() {
+        platforms.forEach(movingPlatform -> {
+            if (movingPlatform.getLeftX() <= 0 || (movingPlatform.getRightX()) >= canvas.getWidth()) {
+                movingPlatform.changeDirection();
+            }
+            movingPlatform.move();
+        });
+    }
+
 
 }
 

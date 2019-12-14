@@ -30,7 +30,6 @@ public class Pixel {
         eyeBall1 = new Ellipse(2, 5, 11, 15);
         eyeBall2 = new Ellipse(26, 5, 11, 15);
         mouth = new Arc(20, 30, 10, 10, 180, 180);
-        bounce();
         drawPixel();
     }
 
@@ -63,7 +62,9 @@ public class Pixel {
         mouth.setStrokeColor(Color.lightGray);
         mouth.setStroked(true);
         pixel.add(mouth);
-        pixel.setPosition(PixelJump.CANVAS_WIDTH / 2, PixelJump.CANVAS_HEIGHT - 60);
+
+        // **************************
+        pixel.setPosition(PixelJump.CANVAS_WIDTH / 2, 0);
 
         previousBottomPixelY = pixel.getY() + 590;
     }
@@ -95,9 +96,11 @@ public class Pixel {
         return pixel.getY() + pixel.getHeight();
     }
 
-
-    public void bounce() {
+    public void bounceOff(Platform platform) {
         yVelocity = JUMP_VELOCITY;
+
+        // preventing the pixel from moving inside the platform
+        pixel.setPosition(pixel.getX(), platform.getTopYPosition() - pixel.getHeight());
     }
 
     public boolean didJustCrossPlatform(Platform platform) {
@@ -110,6 +113,7 @@ public class Pixel {
     public void pixelPositionWhenMovingUp(double difference) {
         pixel.moveBy(0, difference);
     }
+
 }
 
 
