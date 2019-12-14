@@ -29,14 +29,15 @@ public class PixelJump {
         platformManager = new PlatformManager(canvas, pixel);
         pixel.addToCanvas(canvas);
         pixelJumpRun();
-        platformManager.generateSinglePlatform();
+        Platform startingPlatform = platformManager.generateStartingPlatform();
+        pixel.bounceOff(startingPlatform);
         platformManager.generatePlatforms();
 
     }
 
     public void pixelJumpRun() {
         canvas.animate(() -> {
-                    if (pixel.getCurrentBottomPixel() < CANVAS_HEIGHT) {
+                    if (pixel.getCurrentBottomPixel() <= CANVAS_HEIGHT) {
                         pixel.pixelContinuousJump();
                         platformManager.pixelLands();
                     } else {

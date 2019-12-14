@@ -12,7 +12,7 @@ public class PlatformManager {
     private CanvasWindow canvas;
     private GraphicsGroup platformCollection;
     private List<Platform> platforms;
-    private List<Double> platformHeights;
+
     private double platformWidth;
     private double platformHeight;
     private static final double jumpRange = 100;
@@ -33,22 +33,21 @@ public class PlatformManager {
 
         rand = new Random();
         this.pixel = pixel;
-        platformHeights = new ArrayList<>();
+
         platforms = new ArrayList<>();
         platformCollection = new GraphicsGroup();
         canvas.add(platformCollection);
     }
-// something is wrong with initializing the platform
-    public void generateSinglePlatform(){
-        Platform platform = new Platform(canvas.getWidth()*0.8,770,platformWidth,platformHeight);
-        platform.setStroked(true);
-        platform.setStrokeColor(Color.ORANGE);
-        platform.setFilled(true);
-        platform.setFillColor(Color.ORANGE);
+
+    public Platform generateStartingPlatform(){
+        Platform platform = new Platform(0,canvas.getHeight(),canvas.getWidth(),1);
+        platform.setStroked(false);
+        platform.setFilled(false);
+
         platforms.add(platform);
         platformCollection.add(platform);
-        System.out.println("First Platform");
 
+        return platform;
     }
 
 
@@ -63,7 +62,7 @@ public class PlatformManager {
             platform.setFillColor(Color.ORANGE);
             platformCollection.add(platform);
             platforms.add(platform);
-            platformHeights.add(currentY);
+            System.out.println(platforms.size());
             currentY -= (rand.nextDouble() * jumpRange * 0.7 + 30);
 
         }
@@ -73,7 +72,7 @@ public class PlatformManager {
     public void pixelLands() {
         for (Platform platform : platforms) {
             if (pixel.didJustCrossPlatform(platform)) {
-                pixel.bounce();
+                pixel.bounceOff(platform);
             }
         }
     }
@@ -95,9 +94,7 @@ public class PlatformManager {
         }
     }
 
-    public int getNumberOfPlatforms() {
-        return platforms.size();
-    }
+
 
     public void removePlatforms(List<Platform> platformsToBeRemoved) {
         for (Platform platform : platformsToBeRemoved) {
