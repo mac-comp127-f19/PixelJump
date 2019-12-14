@@ -8,6 +8,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+/* Julia Kispert and Weishi Ding
+* This class controls platforms displayed on canvas within Pixel Jump and relationship with the pixel
+* Help Received From Professor Paul Cantrell */
+
 public class PlatformManager {
     private CanvasWindow canvas;
     private GraphicsGroup platformCollection;
@@ -20,8 +24,14 @@ public class PlatformManager {
     private double maxY;
     private double currentY; // the position of the current platform
     private Random rand;
-    Pixel pixel;  // should be private
+    private Pixel pixel;
 
+    /**
+     * sets up basic characteristics of platform group (size of each platform and where it should be place based on random).
+     * Also initializes list where platforms will be kept
+     * @param pixel - pixel in game
+     * @param canvas - game canvas where platforms will be added
+     **/
     public PlatformManager(CanvasWindow canvas, Pixel pixel) {
 
         this.canvas = canvas;
@@ -39,8 +49,12 @@ public class PlatformManager {
         canvas.add(platformCollection);
     }
 
-    public Platform generateStartingPlatform(){
-        Platform platform = new Platform(0,canvas.getHeight(),canvas.getWidth(),1);
+    /**
+     * generates a platform at the very bottom of the canvas,
+     * so pixel does not die on first bounce
+     **/
+    public Platform generateStartingPlatform() {
+        Platform platform = new Platform(0, canvas.getHeight(), canvas.getWidth(), 1);
         platform.setStroked(false);
         platform.setFilled(false);
 
@@ -50,7 +64,11 @@ public class PlatformManager {
         return platform;
     }
 
-
+    /**
+     * generates platforms over canvas based on the canvas size, and adds them to the graphic group.
+     * The yValue of the platform is altered in regards to the jump range of the pixel.
+     * this ensures that the pixel will always be able to reach a platform
+     **/
     public void generatePlatforms() {
 
         while (currentY > maxY) {
@@ -69,6 +87,9 @@ public class PlatformManager {
 
     }
 
+    /**
+     * checks if pixel is on a platform, and if so the pixel bounces off it
+     **/
     public void pixelLands() {
         for (Platform platform : platforms) {
             if (pixel.didJustCrossPlatform(platform)) {
@@ -77,6 +98,12 @@ public class PlatformManager {
         }
     }
 
+    /**
+     * updates positions of platform group by shifting it down, so the pixel can continue to move up the screen. Platforms are moved
+     * once the pixel gets half way up the canvas. Then the platforms are moved by the difference between the pixel and half way mark.
+     * The pixels position is also called to be updated. CurrentY is updated and platforms are generated to be in their new locations.
+     * Also keeps track of platforms that are no longer shown on the canvas and sends list of these platforms to removePlatforms()
+     **/
     public void updatePlatforms(double pixelY) {
         double difference = canvas.getHeight() / 2 - pixelY;
         if (difference > 0) {
@@ -94,7 +121,11 @@ public class PlatformManager {
         }
     }
 
-
+    /**
+     *  removes every platform that is in list. List is filled with platforms that are filled with platforms no longer on canvas
+     * @param platformsToBeRemoved - list of platforms set in updatePlatforms class, where platforms are added to list if they
+     *                             are located below the canvas
+     **/
 
     public void removePlatforms(List<Platform> platformsToBeRemoved) {
         for (Platform platform : platformsToBeRemoved) {
