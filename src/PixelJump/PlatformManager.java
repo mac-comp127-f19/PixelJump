@@ -1,16 +1,20 @@
+/**
+ * @author By Julia Kispert and Weishi Ding
+ * acknowledgements:Professor Paul Cantrell, Thy Nguyen, Logan Caraco
+ * This class controls platforms displayed on canvas within Pixel Jump and relationship with the pixel
+ */
+
+
+
 package PixelJump;
 
 import comp127graphics.CanvasWindow;
 import comp127graphics.GraphicsGroup;
-
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-/* Julia Kispert and Weishi Ding
-* This class controls platforms displayed on canvas within Pixel Jump and relationship with the pixel
-* Help Received From Professor Paul Cantrell */
 
 public class PlatformManager {
     private CanvasWindow canvas;
@@ -57,7 +61,6 @@ public class PlatformManager {
         Platform platform = new Platform(0, canvas.getHeight(), canvas.getWidth(), 1);
         platform.setStroked(false);
         platform.setFilled(false);
-
         platforms.add(platform);
         platformCollection.add(platform);
 

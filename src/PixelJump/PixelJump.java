@@ -1,3 +1,10 @@
+/**
+ * @author By Julia Kispert and Weishi Ding
+ * acknowledgements:Professor Paul Cantrell
+ * This class controls and runs PixelJump Game
+ */
+
+
 package PixelJump;
 
 import comp127graphics.CanvasWindow;
@@ -6,9 +13,6 @@ import comp127graphics.GraphicsText;
 
 import java.awt.*;
 
-/* Julia Kispert and Weishi Ding
- * This class controls and runs PixelJump Game
- * Help Received From Professor Paul Cantrell */
 
 public class PixelJump {
     public static final int CANVAS_WIDTH = 600;

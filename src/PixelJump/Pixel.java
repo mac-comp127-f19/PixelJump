@@ -1,3 +1,8 @@
+/**
+ * @author By Julia Kispert and Weishi Ding
+ * acknowledgements:Professor Paul Cantrell, Thy Nguyen, Logan Caraco
+ * This class controls the pixel (its characteristics and movements)
+ */
 package PixelJump;
 
 
@@ -8,9 +13,6 @@ import comp127graphics.Rectangle;
 
 import java.awt.*;
 
-/* Julia Kispert and Weishi Ding
- * This class controls the pixel (its characteristics and movements)
- * Help Received From Professor Paul Cantrell */
 
 public class Pixel {
     private static final double GRAVITY = .4,
@@ -107,6 +109,8 @@ public class Pixel {
         }
 
     }
+
+
 
     /**
      *  returns bottom y position of pixel

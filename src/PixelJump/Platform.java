@@ -1,12 +1,16 @@
+
+/**
+ * @author By Julia Kispert and Weishi Ding
+ * acknowledgements:Professor Paul Cantrell, Thy Nguyen, Logan Caraco
+ * This class creates the basic format of a paddle and returns some of its characteristics
+ */
+
 package PixelJump;
 
 import comp127graphics.Rectangle;
 
 import java.util.Random;
 
-/* Julia Kispert and Weishi Ding
- * This class creates the basic format of a paddle and returns some of its characteristics.
- */
 
 public class Platform extends Rectangle {
 
