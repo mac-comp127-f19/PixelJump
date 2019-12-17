@@ -83,7 +83,6 @@ public class PlatformManager {
             platform.setFillColor(Color.ORANGE);
             platformCollection.add(platform);
             platforms.add(platform);
-            System.out.println(platforms.size());
             currentY -= (rand.nextDouble() * jumpRange * 0.7 + 30);
 
         }
